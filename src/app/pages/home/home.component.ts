@@ -22,6 +22,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { QuizCreateCardComponent } from '../../components/quiz-create-card/quiz-create-card.component';
 import { IQuiz } from '../../interfaces/quiz.interface';
 import { Subject } from 'rxjs';
+import { compressData } from '../../utils/compress-data';
 
 @Component({
   selector: 'app-home',
@@ -81,6 +82,7 @@ export class HomeComponent {
   loadedQuiz: IQuiz = {name: '', description: '', questions: []};
 
   quizFinalContent?: IQuiz;
+  compressedQuizContent: string = '';
 
   eventsSubject: Subject<any> = new Subject();
 
@@ -129,12 +131,19 @@ export class HomeComponent {
   }
 
   onSaveData(stepper: MatStepper) {
+    this.compressedQuizContent = '';
     this.eventsSubject.next(1);
     stepper.next();
   }
 
   onRecieveQuizContent(quizContent: IQuiz){
     this.quizFinalContent = quizContent;
+    const compressed = compressData(quizContent)
+    if(compressed === null) {
+      console.log("Error compressing data");
+      return;
+    }
+    this.compressedQuizContent = compressed;
   }
 
   printData() {

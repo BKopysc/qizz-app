@@ -5,7 +5,7 @@
 
 <div class="description-div">
     <mat-stepper orientation="vertical" [linear]="true" #stepper>
-        <!-- <mat-step [stepControl]="quizInfoFormGroup">
+        <mat-step [stepControl]="quizInfoFormGroup">
             <form [formGroup]="quizInfoFormGroup">
                 <ng-template matStepLabel>Quiz Info</ng-template>
                 <div class="form-section form-mw-300">
@@ -91,7 +91,7 @@
                 <button mat-stroked-button matStepperPrevious>Back</button>
                 <button mat-stroked-button (click)="loadFromTemplate(stepper)">Next</button>
             </div>
-        </mat-step> -->
+        </mat-step>
 
         <mat-step>
             <ng-template matStepLabel>Quiz editor</ng-template>
@@ -118,10 +118,11 @@
 
         <mat-step>
             <ng-template matStepLabel>Done</ng-template>
-            <p>You are now done.</p>
-            <button (click)="printData()">getData</button>
+            <p>Quiz Data:</p>
+            <!-- <button (click)="printData()">getData</button> -->
+            <textarea disabled style="max-width: 500px; height:150px; width: 100%;" [value]="compressedQuizContent"></textarea>
             <div class="step-button-div mt-30">
-                <button mat-stroked-button>Copy link</button>
+                <button mat-stroked-button color="primary">Copy link</button>
                 <button mat-stroked-button>Copy data</button>
             </div>
         </mat-step>
