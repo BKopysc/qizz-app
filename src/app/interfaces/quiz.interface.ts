@@ -8,7 +8,6 @@ export interface IQuestion{
     name: string;
     id: string;
     answers: IAnswer[];
-    link: string;
 }
 
 export interface IAnswer{
@@ -31,9 +30,6 @@ export interface IQuestionParsed{
         _text: string
     };
     ans: IAnswerParsed[];
-    link: {
-        _text: string
-    }
 }
 
 export interface IAnswerParsed{

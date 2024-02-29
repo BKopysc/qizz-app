@@ -12,7 +12,6 @@ export function generatePrompt(subject: string = "any", language: string = 'engl
     <q>
     <qName>name</qName> 
     <ans isCorrect=„false”>answer</ans>
-    <link></link>
     </q>
     </quiz>\n`;
 

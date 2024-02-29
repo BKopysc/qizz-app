@@ -1,17 +1,16 @@
 <h2>XML Quiz Template</h2>
-<p>You can edit content in (...)</p>
-<pre>
+<p>Editable content is <i>"true/false"</i> and <i>(Names)</i></p>
+<pre class="code-format">
     &lt;quiz&gt;
         &lt;q&gt;
             &lt;qName&gt;(Question Name)&lt;/qName&gt;
-            &lt;ans&gt;
-                &lt;aName&gt;(Answer Name)&lt;/aName&gt;
-                &lt;isCorrect&gt;(true/false)&lt;/isCorrect&gt;
-            &lt;/ans&gt;
-            &lt;ans&gt;
-                &lt;aName&gt;(Second Answer Name)&lt;/aName&gt;
-                &lt;isCorrect&gt;(true/false)&lt;/isCorrect&gt;
-            &lt;/ans&gt;
+            &lt;ans isCorrect="true/false"&gt;(Answer Name)&lt;/ans&gt;
+            &lt;ans isCorrect="true/false"&gt;(Second Answer Name)&lt;/ans&gt;
+        &lt;/q&gt;
+        &lt;q&gt;
+            &lt;qName&gt;(Second Question Name)&lt;/qName&gt;
+            &lt;ans isCorrect="true/false"&gt;(Answer Name)&lt;/ans&gt;
+            &lt;ans isCorrect="true/false"&gt;(Second Answer Name)&lt;/ans&gt;
         &lt;/q&gt;
     &lt;/quiz&gt;
 </pre>

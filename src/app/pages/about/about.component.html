@@ -1,5 +1,5 @@
 <h2>Why QIzz?</h2>
-<p>QIzz stands for Quiz Inteligence. It is build for creating quizes with GPTs suports.</p>
+<p>QIzz stands for Quiz Inteligence. It is build for creating quizes with GPTs supports.</p>
 <h2>How it works?</h2>
 <ol>
     <li>Go home</li>
@@ -12,7 +12,27 @@
 <p>URL is long because it contains all quiz data. <br/>You can share it with others and they will see the same quiz as you.
     <br/>You can also share pure compressed data and load it in 
     <a [routerLink]="['/load-quiz']">Load Quiz</a> page.</p>
-<p>This app is front-only</p>
+<h2>Are you storing Quiz data?</h2>
+<p>No. This app is frontend only. Everything is exchanged by users themselves.</p>
+<h2>Live demo</h2>
+<h3>Quiz in <a [routerLink]="['/quiz', compressedData]">URL</a></h3>
+<p>Quiz in template:</p>
+<pre class="code-format">
+    &lt;quiz&gt;
+        &lt;q&gt;
+            &lt;qName&gt;What is the capital of Poland?&lt;/qName&gt;
+            &lt;ans isCorrect="true"&gt;Warsaw&lt;/ans&gt;
+            &lt;ans isCorrect="false"&gt;Krakow&lt;/ans&gt;
+            &lt;ans isCorrect="false"&gt;Wroclaw&lt;/ans&gt;
+        &lt;/q&gt;
+        &lt;q&gt;
+            &lt;qName&gt; What is the capital of Germany?&lt;/qName&gt;
+            &lt;ans isCorrect="true"&gt;Berlin&lt;/ans&gt;
+            &lt;ans isCorrect="false"&gt;Munich&lt;/ans&gt;
+            &lt;ans isCorrect="false"&gt;Hamburg&lt;/ans&gt;
+        &lt;/q&gt;
+    &lt;/quiz&gt;
+</pre>
 <div style="text-align: center; margin-top: 50px;">
     <span>
         2024 | Made by

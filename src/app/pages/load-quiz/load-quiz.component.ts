@@ -3,13 +3,14 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-load-quiz',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, CommonModule, FormsModule, MatButtonModule, RouterModule],
+  imports: [MatFormFieldModule, MatInputModule, CommonModule, FormsModule, MatButtonModule, RouterModule, MatIconModule],
   templateUrl: './load-quiz.component.html',
   styleUrl: './load-quiz.component.scss'
 })

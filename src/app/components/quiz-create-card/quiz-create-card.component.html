@@ -61,7 +61,7 @@
         }
 
         <div class="content-footer">
-            <mat-checkbox [(ngModel)]="isMultipleChoice">Multiple choice</mat-checkbox>
+            <!-- <mat-checkbox [(ngModel)]="isMultipleChoice">Multiple choice</mat-checkbox> -->
             <div class="add-new-question-div" [ngClass]="(isHandset$ | async) ? 'add-new-question-mobile':''">
                 <mat-form-field appearance="outline" [ngClass]="(isHandset$ | async) ? 'question-form-mobile':'question-form'">
                     <input matInput  placeholder="New question" [(ngModel)]="newQuestion">
@@ -72,6 +72,6 @@
                 </button>
             </div>
         </div>
-        <button (click)="getData()">Get data</button>
+        <!-- <button (click)="getData()">Get data</button> -->
     </mat-card-content>
 </mat-card>

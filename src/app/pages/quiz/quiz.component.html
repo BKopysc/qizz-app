@@ -3,7 +3,7 @@
     @if(isUncompressError){
         <div class="simple-flex">
             <h3>Quiz loading error</h3>
-            <button mat-flat-button color="primary">
+            <button mat-flat-button color="primary" [routerLink]="['/home']">
                 Go Home
             </button>
         </div>

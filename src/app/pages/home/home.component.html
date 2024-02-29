@@ -87,6 +87,10 @@
                     </mat-form-field>
                 </div>
             </form>
+            @if(isLoadedFromTemplateError){
+                <p style="color:brown">Data is invalid</p>
+                <button mat-flat-button color="accent" (click)="onClearTemplateTextarea()">Clear data</button>
+            }
             <div class="step-button-div mt-30">
                 <button mat-stroked-button matStepperPrevious>Back</button>
                 <button mat-stroked-button (click)="loadFromTemplate(stepper)">Next</button>
@@ -127,11 +131,12 @@
                 <!-- <button (click)="printData()">getData</button> -->
                 <textarea disabled style="max-width: 500px; height:150px; width: 100%;" [value]="compressedQuizContent"></textarea>
                 <div class="step-button-div mt-30">
-                    <button mat-flat-button color="primary" (click)="onCopyLink()">Copy link</button>
+                    <button mat-stroked-button (click)="onCopyLink()">Copy link</button>
                     <button mat-stroked-button (click)="onCopyData()">Copy data</button>
                 </div>
-                <div class="mt-30">
-                    <button mat-stroked-button color="accent" (click)="onReset()">Start over</button>
+                <div class="step-button-div mt-30">
+                    <a mat-flat-button color="primary" href="/quiz/{{compressedQuizContent}}" target="_blank">View</a>
+                    <button mat-flat-button color="accent" (click)="onReset()">Start over</button>
                 </div>
             }
           

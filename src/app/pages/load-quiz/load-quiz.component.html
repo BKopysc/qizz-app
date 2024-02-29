@@ -4,5 +4,8 @@
     <mat-label>Paste quiz data</mat-label>
     <textarea matInput placeholder='' [(ngModel)]="quizCompressedData" class="text-area"></textarea>
 </mat-form-field>
-<button mat-flat-button color="primary" class="load-button" (click)="onLoadData()">Load</button>
+<button mat-flat-button color="primary" class="load-button" (click)="onLoadData()">
+    <mat-icon>download_for_offline</mat-icon>
+    <span>Load</span>
+</button>
 </div>

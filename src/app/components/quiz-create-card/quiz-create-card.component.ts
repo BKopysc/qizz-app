@@ -78,7 +78,7 @@ export class QuizCreateCardComponent implements OnInit, OnChanges, OnDestroy{
   }
 
   addQuestion(){
-    let newQuestion: IQuestion = {id: uniqid(), name: this.newQuestion, answers: [], link: ''};
+    let newQuestion: IQuestion = {id: uniqid(), name: this.newQuestion, answers: []};
     this.quizContent.questions.push(newQuestion);
     this.newQuestion = '';
   }

@@ -24,6 +24,7 @@ import { QuizCreateCardComponent } from '../../components/quiz-create-card/quiz-
 import { IQuiz } from '../../interfaces/quiz.interface';
 import { Subject } from 'rxjs';
 import { compressData } from '../../utils/compress-data';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -51,7 +52,7 @@ export class HomeComponent {
 
   quizInfoFormGroup = this._formBuilder.group({
     titleCtrl: ['', [Validators.required, Validators.maxLength(50)]],
-    descriptionCtrl: ['', [Validators.required, Validators.maxLength(50)]],
+    descriptionCtrl: ['quiz', [Validators.required, Validators.maxLength(50)]],
   });
 
   aiGeneratedFormGroup = this._formBuilder.group({
@@ -81,14 +82,15 @@ export class HomeComponent {
   isLoadedFromTemplateError = false;
   isEditorStepOpened = false;
 
-  loadedQuiz: IQuiz = {name: '', description: '', questions: []};
+  loadedQuiz: IQuiz = {name: '', description: 'quiz', questions: []};
 
   quizFinalContent?: IQuiz;
   compressedQuizContent: string = '';
 
   eventsSubject: Subject<any> = new Subject();
 
-  constructor(private _formBuilder: FormBuilder, private _snackBar: MatSnackBar, private _clipboard: Clipboard) { }
+  constructor(private _formBuilder: FormBuilder, private _router: Router,
+    private _snackBar: MatSnackBar, private _clipboard: Clipboard) { }
 
   onGenerateQuiz() {
     this.isGenerated = true;
@@ -165,6 +167,16 @@ export class HomeComponent {
     openSnackBar("Data copied to clipboard", this._snackBar);
     this._clipboard.copy(this.compressedQuizContent);
   }
+
+  onClearTemplateTextarea(){
+    this.loadTemplateFormGroup.get("templateCtrl")?.setValue('');
+    this.isLoadedFromTemplateError = false;
+  }
+
+  // onViewQuiz(){
+  //   const route = location.origin + '/quiz' + this.compressedQuizContent;
+  //   window.open(route, '_blank');
+  // }
 
   onReset(){
     //Refresh page

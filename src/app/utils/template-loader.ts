@@ -3,7 +3,6 @@
     <q>
         <qName>name</qName> 
         <ans isCorrect=„false”>answer</ans>
-        <link></link>
     </q>
 </quiz>
 */
@@ -24,10 +23,6 @@ const templateXML = {
             attribute: "isCorrect",
             closingTag: "</ans>"
         },
-        link: {
-            openingTag: "<link>",
-            closingTag: "</link>"
-        }
     }
 }
 
@@ -68,8 +63,7 @@ export function LoadFromTemplate(data: string): IQuiz | null {
                         id: uniqid(),
                         isCorrect: a._attributes.isCorrect as boolean
                     }
-                }),
-                link: q.link._text as string
+                })
             }
         });
     
