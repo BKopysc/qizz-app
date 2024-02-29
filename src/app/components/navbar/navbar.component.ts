@@ -33,11 +33,9 @@ import { NavbarIconComponent } from '../navbar-icon/navbar-icon.component';
 
 export class NavbarComponent {
 
- 
-
   public routes: {route: CustomRoute, name: string, icon: string}[]= [
     {route: 'home', name: 'Home', icon: 'home'},
-    {route: 'quiz', name: 'Load Quiz', icon: 'question_answer'},
+    {route: 'load-quiz', name: 'Load Quiz', icon: 'question_answer'},
     {route: 'about', name: 'About', icon: 'info'}
   ]
   constructor(private router: Router) {}

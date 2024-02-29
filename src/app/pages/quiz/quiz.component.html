@@ -1,1 +1,26 @@
-<p>quiz works!</p>
+
+@if(quizData === undefined){
+    @if(isUncompressError){
+        <div class="simple-flex">
+            <h3>Quiz loading error</h3>
+            <button mat-flat-button color="primary">
+                Go Home
+            </button>
+        </div>
+
+    } @else {
+        <div class="simple-flex">
+            <h3>Loading</h3>
+            <mat-spinner [diameter]="40"></mat-spinner>
+        </div>
+    }
+} 
+
+@if(quizData){
+    <div>
+        <h3>{{quizData.name}}</h3>
+        <p>{{quizData.description}}</p>
+    </div>
+}
+
+
