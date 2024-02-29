@@ -1,5 +1,5 @@
 <div class="title-div">
-    <h1 class="title">Qizz</h1>
+    <h1 class="title">QIzz</h1>
     <h3 class="subtitle">Fast and light Quiz builder with Chat-GPT prompt support</h3>
 </div>
 
@@ -18,13 +18,15 @@
                         <input matInput placeholder="Check your knowladge!" formControlName="descriptionCtrl" required>
                     </mat-form-field>
                 </div>
-                <div>
-                    <button mat-stroked-button matStepperNext>Next</button>
+                <div class="step-button-div mt-30">
+                    <button mat-stroked-button (click)="useAiButtonClick(); stepper.next()">Use AI</button>
+                    <button mat-stroked-button (click)="useEditorButtonClick(); stepper.next()">Use Editor</button>
                 </div>
             </form>
-        </mat-step> -->
+        </mat-step>
 
-        <mat-step [stepControl]="aiGeneratedFormGroup">
+        <mat-step [stepControl]="aiGeneratedFormGroup" *ngIf="isUseAi">
+            <p>This step is optional</p>
             <form [formGroup]="aiGeneratedFormGroup">
                 <ng-template matStepLabel>Generate with AI (optional)</ng-template>
                 <div class="form-section mb-20">
@@ -44,13 +46,14 @@
                     <mat-form-field class="form-mw-200">
                         <mat-label>Difficulty</mat-label>
                         <mat-select formControlName="difficultyCtrl">
-                          @for (difLevel of difficultyLevels; track difLevel) {
+                            @for (difLevel of difficultyLevels; track difLevel) {
                             <mat-option [value]="difLevel.value">{{difLevel.viewValue}}</mat-option>
-                          }
+                            }
                         </mat-select>
-                      </mat-form-field>
+                    </mat-form-field>
 
-                    <mat-checkbox formControlName="enableMultipleChoiceCtrl" color="primary">Multiple choice</mat-checkbox>
+                    <mat-checkbox formControlName="enableMultipleChoiceCtrl" color="primary">Multiple
+                        choice</mat-checkbox>
 
                 </div>
 
@@ -60,8 +63,9 @@
                     <p class="result-info">Result (copy it to Chat-GPT or another LLM)</p>
 
                     <textarea class="form-mw-500 form-minh-200" [value]="textAreaResult" disabled></textarea>
-                    
-                    <button mat-flat-button color="accent" class="form-mw-auto" (click)="onCopyGenerated()">Copy</button>
+
+                    <button mat-flat-button color="accent" class="form-mw-auto"
+                        (click)="onCopyGenerated()">Copy</button>
                 </div>
                 <div class="step-button-div mt-30">
                     <button mat-stroked-button matStepperPrevious>Back</button>
@@ -70,12 +74,55 @@
             </form>
         </mat-step>
 
+        <mat-step [stepControl]="loadTemplateFormGroup">
+            <ng-template matStepLabel>Load from generated data (optional)</ng-template>
+            <p class="xml-note">Note: template is in XML format, you can use it to write your data.</p>
+            <p class="gpt-note" *ngIf="isUseAi">You can past here result from Chat-GPT</p>
+            <form [formGroup]="loadTemplateFormGroup">
+                <div class="form-section mb-20">
+                    <mat-form-field class="form-mw-500">
+                        <mat-label>Paste quiz data</mat-label>
+                        <textarea matInput placeholder='<quiz><q><ans>' formControlName="templateCtrl" class="form-minh-200">
+                        </textarea>
+                    </mat-form-field>
+                </div>
+            </form>
+            <div class="step-button-div mt-30">
+                <button mat-stroked-button matStepperPrevious>Back</button>
+                <button mat-stroked-button (click)="loadFromTemplate(stepper)">Next</button>
+            </div>
+        </mat-step> -->
+
+        <mat-step>
+            <ng-template matStepLabel>Quiz editor</ng-template>
+            <p>You can custom your Quiz</p>
+
+            
+
+            <ng-template matStepContent>
+                <app-quiz-create-card [title]="quizInfoFormGroup.value.titleCtrl! || 'title'"
+                    [description]="quizInfoFormGroup.value.descriptionCtrl! || 'description'"
+                    [quizContent]="loadedQuiz!"
+                    [parentSubject]="eventsSubject"
+                    (getQuizContent)="onRecieveQuizContent($event)"
+                    >
+                </app-quiz-create-card>
+
+                <div class="step-button-div mt-30">
+                    <button mat-stroked-button matStepperPrevious>Back</button>
+                    <button mat-flat-button matStepperNext color="primary" (click)="onSaveData(stepper)">Save</button>
+                </div>
+            </ng-template>
+
+        </mat-step>
+
         <mat-step>
             <ng-template matStepLabel>Done</ng-template>
             <p>You are now done.</p>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
+            <button (click)="printData()">getData</button>
+            <div class="step-button-div mt-30">
+                <button mat-stroked-button>Copy link</button>
+                <button mat-stroked-button>Copy data</button>
             </div>
         </mat-step>
     </mat-stepper>

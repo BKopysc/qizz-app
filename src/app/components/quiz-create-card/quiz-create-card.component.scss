@@ -1,0 +1,79 @@
+.content-footer{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.quiz-content-div{
+    margin-top: 20px;
+}
+
+.question-content-div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quiz-card{
+    background-color: #faf9ff;
+}
+
+.add-new-question-div{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+}
+
+.question-form{
+    width: 85%;
+}
+
+.maxw-300{
+    max-width: 300px;
+}
+
+.add-new-question-mobile{
+    width: 100%;
+    gap:0px !important;
+    flex-direction: column !important;
+    align-items: normal !important;
+}
+
+.answer-div{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.answer-div-mobile{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: normal;
+}
+
+.answer-icons-div{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+}
+
+.footer-question-buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: start;
+}
+
+.footer-question-buttons-mobile{
+    margin-top:25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}

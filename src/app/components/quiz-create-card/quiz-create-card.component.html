@@ -1,0 +1,77 @@
+<mat-card class="quiz-card">
+    <mat-card-header>
+        <mat-card-title>{{title}}</mat-card-title>
+        <mat-card-subtitle>{{description}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        @if (quizContent) {
+            <div class="quiz-content-div">
+                <mat-accordion>
+                    @for (quizQuestion of quizContent.questions; track $index) {
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    {{$index+1}}. {{quizQuestion.name}}
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="question-content-div">
+                                @for (quizAnswer of quizQuestion.answers; track $index) {
+                                    <div [ngClass]="(isHandset$ | async) ? 'answer-div-mobile':'answer-div'">
+                                        <!-- <mat-checkbox [checked]="answerMap.get(quizAnswer.id)" (change)="answerMap.set(quizAnswer.id, $event.checked)">{{quizAnswer.name}}</mat-checkbox> -->
+                                        <mat-checkbox [checked]="quizAnswer.isCorrect" (change)="changeAnswerState(quizQuestion, quizAnswer.id)">
+                                            {{quizAnswer.name}}
+                                        </mat-checkbox>
+                                        <div class='answer-icons-div' >
+                                            <button mat-icon-button color="basic">
+                                                <mat-icon>edit</mat-icon>
+                                            </button>
+                                            <button mat-icon-button color="warn" (click)="deleteAnswer(quizQuestion, quizAnswer)">
+                                                <mat-icon>delete</mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <mat-divider></mat-divider>
+                                }
+                            </div>
+                            <div class="add-new-question-div" [ngClass]="(isHandset$ | async) ? 'add-new-question-mobile':''" >
+                                <mat-form-field appearance="outline" [ngClass]="(isHandset$ | async) ? 'question-form-mobile':'question-form'">
+                                    <input matInput  placeholder="New answer" [(ngModel)]="newAnswer">
+                                </mat-form-field>
+                                <button mat-flat-button color="primary" (click)="addAnswer(quizQuestion)" style="margin-top: 10px;">
+                                    <span>Add</span>
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+                            <div [ngClass]="(isHandset$ | async) ? 'footer-question-buttons-mobile':'footer-question-buttons'">
+
+                                <button mat-flat-button color="accent">
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Edit</span>
+                                </button>
+
+                                <button mat-flat-button color="warn" (click)="deleteQuestion(quizQuestion)">
+                                    <mat-icon>delete</mat-icon>
+                                    <span>Delete</span>
+                                </button>
+                            </div>
+                        </mat-expansion-panel>
+                    }
+                </mat-accordion>
+            </div>
+        }
+
+        <div class="content-footer">
+            <mat-checkbox [(ngModel)]="isMultipleChoice">Multiple choice</mat-checkbox>
+            <div class="add-new-question-div" [ngClass]="(isHandset$ | async) ? 'add-new-question-mobile':''">
+                <mat-form-field appearance="outline" [ngClass]="(isHandset$ | async) ? 'question-form-mobile':'question-form'">
+                    <input matInput  placeholder="New question" [(ngModel)]="newQuestion">
+                </mat-form-field>
+                <button mat-flat-button color="primary" (click)="addQuestion()" style="margin-top: 10px;">
+                    <span>Add</span>
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+        <button (click)="getData()">Get data</button>
+    </mat-card-content>
+</mat-card>

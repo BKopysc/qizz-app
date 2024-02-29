@@ -33,7 +33,7 @@ import { NavbarIconComponent } from '../navbar-icon/navbar-icon.component';
 
 export class NavbarComponent {
 
-  private breakpointObserver = inject(BreakpointObserver);
+ 
 
   public routes: {route: CustomRoute, name: string, icon: string}[]= [
     {route: 'home', name: 'Home', icon: 'home'},
@@ -41,6 +41,8 @@ export class NavbarComponent {
     {route: 'about', name: 'About', icon: 'info'}
   ]
   constructor(private router: Router) {}
+
+  private breakpointObserver = inject(BreakpointObserver);
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
