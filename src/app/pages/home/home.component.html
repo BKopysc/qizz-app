@@ -4,5 +4,55 @@
 </div>
 
 <div class="description-div">
+    <mat-stepper orientation="vertical" [linear]="true" #stepper>
+        <mat-step [stepControl]="quizInfoFormGroup">
+            <form [formGroup]="quizInfoFormGroup">
+                <ng-template matStepLabel>Quiz Info</ng-template>
+                <div class="form-section form-mw-300">
+                    <mat-form-field>
+                        <mat-label>Title</mat-label>
+                        <input matInput placeholder="Quiz about AI" formControlName="titleCtrl" required>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Description</mat-label>
+                        <input matInput placeholder="Check your knowladge!" formControlName="descriptionCtrl" required>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <button mat-stroked-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
 
+        <mat-step [stepControl]="aiGeneratedFormGroup">
+            <form [formGroup]="aiGeneratedFormGroup">
+                <ng-template matStepLabel>Generate with AI (optional)</ng-template>
+                <div class="form-section">
+                    <mat-form-field class="form-mw-500">
+                        <mat-label>Main subject</mat-label>
+                        <textarea matInput placeholder="AI tech in 2024" formControlName="mainSubjectCtrl">
+                        </textarea>
+                    </mat-form-field>
+                    <mat-form-field class="form-mw-300">
+                        <mat-label>Language</mat-label>
+                        <input matInput placeholder="polski" formControlName="languageCtrl">
+                    </mat-form-field>
+                </div>
+                <button mat-flat-button color="primary">Generate prompt</button>
+                <div>
+                    <button mat-stroked-button matStepperPrevious>Back</button>
+                    <button mat-stroked-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step>
+    </mat-stepper>
 </div>

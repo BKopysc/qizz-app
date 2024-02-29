@@ -2,11 +2,16 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async)? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="false">
+      [opened]="(isHandset$ | async) === false">
     <mat-nav-list>
-      <a mat-list-item (click)="onRouteSelect('home')">Home</a>
-      <a mat-list-item (click)="onRouteSelect('quiz')">Solve</a>
-      <a mat-list-item (click)="onRouteSelect('about')">About</a>
+      <app-navbar-icon *ngFor="let route of routes"
+        [name]="route.name"
+        [matIcon]="route.icon"
+        [routeName]="route.route"
+        (onSelectedRoute)="onRouteSelect($event)">
+      ></app-navbar-icon>
+      <!-- <a mat-list-item (click)="onRouteSelect('quiz')">Load Quiz</a>
+      <a mat-list-item (click)="onRouteSelect('about')">About</a> -->
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

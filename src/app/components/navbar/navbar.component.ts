@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { CustomRoute } from '../../app.routes';
 import { Router, RouterModule } from '@angular/router';
+import { NavbarIconComponent } from '../navbar-icon/navbar-icon.component';
 
 @Component({
   selector: 'app-navbar',
@@ -24,7 +25,9 @@ import { Router, RouterModule } from '@angular/router';
     MatIconModule,
     AsyncPipe,
     CommonModule,
-    RouterModule
+    RouterModule,
+    MatIconModule,
+    NavbarIconComponent
   ]
 })
 
@@ -32,6 +35,11 @@ export class NavbarComponent {
 
   private breakpointObserver = inject(BreakpointObserver);
 
+  public routes: {route: CustomRoute, name: string, icon: string}[]= [
+    {route: 'home', name: 'Home', icon: 'home'},
+    {route: 'quiz', name: 'Load Quiz', icon: 'question_answer'},
+    {route: 'about', name: 'About', icon: 'info'}
+  ]
   constructor(private router: Router) {}
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
