@@ -118,13 +118,24 @@
 
         <mat-step>
             <ng-template matStepLabel>Done</ng-template>
-            <p>Quiz Data:</p>
-            <!-- <button (click)="printData()">getData</button> -->
-            <textarea disabled style="max-width: 500px; height:150px; width: 100%;" [value]="compressedQuizContent"></textarea>
-            <div class="step-button-div mt-30">
-                <button mat-stroked-button color="primary">Copy link</button>
-                <button mat-stroked-button>Copy data</button>
-            </div>
+            @if(compressedQuizContent.length === 0){
+                <p>Quiz is not saved yet</p>
+                <mat-progress-bar mode="query"></mat-progress-bar>
+                <button mat-stroked-button matStepperPrevious>Back</button>
+            } @else {
+                <p>Quiz Data:</p>
+                <!-- <button (click)="printData()">getData</button> -->
+                <textarea disabled style="max-width: 500px; height:150px; width: 100%;" [value]="compressedQuizContent"></textarea>
+                <div class="step-button-div mt-30">
+                    <button mat-flat-button color="primary" (click)="onCopyLink()">Copy link</button>
+                    <button mat-stroked-button (click)="onCopyData()">Copy data</button>
+                </div>
+                <div class="mt-30">
+                    <button mat-stroked-button color="accent" (click)="onReset()">Start over</button>
+                </div>
+            }
+          
+
         </mat-step>
     </mat-stepper>
 </div>

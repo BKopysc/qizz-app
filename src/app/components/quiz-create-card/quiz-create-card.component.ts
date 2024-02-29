@@ -12,6 +12,7 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subject, map, shareReplay } from 'rxjs';
 import { MatDividerModule } from '@angular/material/divider';
+import uniqid from 'uniqid';
 
 @Component({
   selector: 'app-quiz-create-card',
@@ -77,7 +78,7 @@ export class QuizCreateCardComponent implements OnInit, OnChanges, OnDestroy{
   }
 
   addQuestion(){
-    let newQuestion: IQuestion = {id: this.questionIdCtr+=1, name: this.newQuestion, answers: [], link: ''};
+    let newQuestion: IQuestion = {id: uniqid(), name: this.newQuestion, answers: [], link: ''};
     this.quizContent.questions.push(newQuestion);
     this.newQuestion = '';
   }
@@ -88,11 +89,7 @@ export class QuizCreateCardComponent implements OnInit, OnChanges, OnDestroy{
   }
 
   addAnswer(question: IQuestion) {
-    let lastId = 0;
-    if(question.answers.length > 0){
-      lastId = question.answers[question.answers.length - 1].id;
-    }
-    question.answers.push({id: lastId+=1, name: this.newAnswer, isCorrect: false});
+    question.answers.push({id: uniqid(), name: this.newAnswer, isCorrect: false});
     this.newAnswer = '';
   }
 
@@ -101,7 +98,7 @@ export class QuizCreateCardComponent implements OnInit, OnChanges, OnDestroy{
     question.answers.splice(index, 1);
   }
 
-  changeAnswerState(question: IQuestion, answerId: number){
+  changeAnswerState(question: IQuestion, answerId: string){
     question.answers.forEach(a => {
       if(a.id === answerId){
         a.isCorrect = !a.isCorrect;
@@ -113,19 +110,6 @@ export class QuizCreateCardComponent implements OnInit, OnChanges, OnDestroy{
     console.log(this.quizContent);
   }
 
-  private fillAnswerMap(){
-    if(this.quizContent){
-      this.quizContent.questions.forEach(q => {
-        q.answers.forEach(a => {
-          this.answerMap.set(a.id, a.isCorrect);
-        });
-      });
-    }
-  }
-
-  private changeAnswer(question: IQuestion){
-    this.answerMap.set(question.id, !this.answerMap.get(question.id));
-  }
 
   private checkMultipleChoiceCompatibility() {
     let isMultiple = false;

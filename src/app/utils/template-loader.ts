@@ -10,6 +10,7 @@
 
 import { xml2js, xml2json } from "xml-js";
 import { IQuiz, IQuizParsed } from "../interfaces/quiz.interface";
+import uniqid from "uniqid";
 
 const templateXML = {
     openingTag: "<quiz>",
@@ -60,11 +61,11 @@ export function LoadFromTemplate(data: string): IQuiz | null {
         parsedContent.questions = json.quiz.q.map(q => {
             return {
                 name: q.qName._text as string,
-                id: idCtr++,
+                id: uniqid(),
                 answers: q.ans.map(a => {
                     return {
                         name: a._text.toString(),
-                        id: questionIdCtr++,
+                        id: uniqid(),
                         isCorrect: a._attributes.isCorrect as boolean
                     }
                 }),

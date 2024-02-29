@@ -9,6 +9,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { generatePrompt } from '../../utils/generate-prompt';
 import { CommonModule } from '@angular/common';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
 import {
   MatSnackBar,
@@ -39,6 +40,7 @@ import { compressData } from '../../utils/compress-data';
     MatIconModule,
     MatDividerModule,
     QuizCreateCardComponent,
+    MatProgressBarModule,
     MatInputModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -150,5 +152,23 @@ export class HomeComponent {
     console.log(this.quizFinalContent);
   }
 
+  combineLink(){
+    return window.location.origin + "/quiz/" + this.compressedQuizContent;
+  }
+
+  onCopyLink() {
+    openSnackBar("Link copied to clipboard", this._snackBar);
+    this._clipboard.copy(this.combineLink());
+  }
+
+  onCopyData(){
+    openSnackBar("Data copied to clipboard", this._snackBar);
+    this._clipboard.copy(this.compressedQuizContent);
+  }
+
+  onReset(){
+    //Refresh page
+    window.location.reload();
+  }
 
 }

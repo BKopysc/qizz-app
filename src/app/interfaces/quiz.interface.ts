@@ -6,14 +6,14 @@ export interface IQuiz {
 
 export interface IQuestion{
     name: string;
-    id: number;
+    id: string;
     answers: IAnswer[];
     link: string;
 }
 
 export interface IAnswer{
     name: string;
-    id: number;
+    id: string;
     isCorrect: boolean;
 }
 
