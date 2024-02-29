@@ -16,11 +16,23 @@
     }
 } 
 
-@if(quizData){
-    <div>
-        <h3>{{quizData.name}}</h3>
-        <p>{{quizData.description}}</p>
+@if(quizData && isResult === false){
+    <app-quiz-card
+        [quizData]="quizData"
+        (onQuizEnded)="getQuizResults($event)"
+    >
+
+    </app-quiz-card>
+}
+
+@if(quizData && isResult){
+    <h3>Your score:</h3>
+    <h2>{{calculatedScore.score}}/{{calculatedScore.maxScore}} ({{calculatedScore.percentage}}%)</h2>
+    <div class="result-buttons">
+        <button mat-flat-button color="primary" (click)="onResetQuiz()">Try again</button>
+        <button mat-flat-button color="accent" (click)="onShareScore()">Share</button>
     </div>
+
 }
 
 

@@ -1,1 +1,30 @@
-<p>quiz-card works!</p>
+<mat-card class="quiz-card">
+    <mat-card-header>
+        <mat-card-title>{{quizData?.name}}</mat-card-title>
+        <mat-card-subtitle>{{quizData?.description}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="card-content">
+        @if(!isLoading){
+        <p>{{quizData?.questions?.length}} questions</p>
+        <div [formGroup]="quizFormGroup">
+            @for (question of quizData?.questions; track $index) {
+            <div class="question-div" formGroupName="{{'q-'+question.id}}">
+                <h3>{{$index+1}}. {{question.name}}</h3>
+                <div class="checkboxes-div">
+                    @for (answer of question.answers; track $index) {
+                    <mat-checkbox formControlName="{{'a-'+answer.id}}">
+                        {{answer.name}}
+                    </mat-checkbox>
+                    }
+                </div>
+            </div>
+        <mat-divider *ngIf="$index < quizData?.questions?.length! - 1"></mat-divider>
+        }
+        </div>
+    }
+    </mat-card-content>
+    <mat-card-actions style="margin-top: 10px;">
+        <button mat-flat-button color="primary" (click)="onSendQuiz()"
+            [ngClass]="(isHandset$  |async) ? 'check-button-mobile' : 'check-button'">Check yourself!</button>
+    </mat-card-actions>
+</mat-card>
