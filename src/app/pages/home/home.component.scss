@@ -12,6 +12,45 @@
     max-width: 300px;
 }
 
+.form-mw-200{
+    max-width: 200px;
+}
+
 .form-mw-500{
     max-width: 500px;
+}
+
+.form-mw-auto{
+    max-width: fit-content;
+}
+
+.form-minh-200{
+    min-height: 200px;
+}
+
+.form-gap-10{
+    gap: 10px;
+}
+
+.result-info{
+    font-weight: 500;
+}
+
+.mt-30{
+    margin-top: 30px;
+}
+
+.mb-20{
+    margin-bottom: 20px;
+}
+
+.mb-40{
+    margin-bottom: 40px;
+}
+
+.step-button-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: baseline;
+    gap: 10px;
 }

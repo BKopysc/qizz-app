@@ -5,7 +5,7 @@
 
 <div class="description-div">
     <mat-stepper orientation="vertical" [linear]="true" #stepper>
-        <mat-step [stepControl]="quizInfoFormGroup">
+        <!-- <mat-step [stepControl]="quizInfoFormGroup">
             <form [formGroup]="quizInfoFormGroup">
                 <ng-template matStepLabel>Quiz Info</ng-template>
                 <div class="form-section form-mw-300">
@@ -22,24 +22,48 @@
                     <button mat-stroked-button matStepperNext>Next</button>
                 </div>
             </form>
-        </mat-step>
+        </mat-step> -->
 
         <mat-step [stepControl]="aiGeneratedFormGroup">
             <form [formGroup]="aiGeneratedFormGroup">
                 <ng-template matStepLabel>Generate with AI (optional)</ng-template>
-                <div class="form-section">
+                <div class="form-section mb-20">
                     <mat-form-field class="form-mw-500">
                         <mat-label>Main subject</mat-label>
                         <textarea matInput placeholder="AI tech in 2024" formControlName="mainSubjectCtrl">
                         </textarea>
                     </mat-form-field>
-                    <mat-form-field class="form-mw-300">
+                    <mat-form-field class="form-mw-200">
                         <mat-label>Language</mat-label>
                         <input matInput placeholder="polski" formControlName="languageCtrl">
                     </mat-form-field>
+                    <mat-form-field class="form-mw-200">
+                        <mat-label>Num of questions</mat-label>
+                        <input matInput type="number" placeholder="10" formControlName="numOfQuestionsCtrl">
+                    </mat-form-field>
+                    <mat-form-field class="form-mw-200">
+                        <mat-label>Difficulty</mat-label>
+                        <mat-select formControlName="difficultyCtrl">
+                          @for (difLevel of difficultyLevels; track difLevel) {
+                            <mat-option [value]="difLevel.value">{{difLevel.viewValue}}</mat-option>
+                          }
+                        </mat-select>
+                      </mat-form-field>
+
+                    <mat-checkbox formControlName="enableMultipleChoiceCtrl" color="primary">Multiple choice</mat-checkbox>
+
                 </div>
-                <button mat-flat-button color="primary">Generate prompt</button>
-                <div>
+
+                <button mat-flat-button color="primary" (click)="onGenerateQuiz()">Generate prompt</button>
+
+                <div class="form-section form-gap-10 mt-30 mb-40" *ngIf="isGenerated">
+                    <p class="result-info">Result (copy it to Chat-GPT or another LLM)</p>
+
+                    <textarea class="form-mw-500 form-minh-200" [value]="textAreaResult" disabled></textarea>
+                    
+                    <button mat-flat-button color="accent" class="form-mw-auto" (click)="onCopyGenerated()">Copy</button>
+                </div>
+                <div class="step-button-div mt-30">
                     <button mat-stroked-button matStepperPrevious>Back</button>
                     <button mat-stroked-button matStepperNext>Next</button>
                 </div>
