@@ -12,7 +12,7 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subject, map, shareReplay } from 'rxjs';
 import { MatDividerModule } from '@angular/material/divider';
-import uniqid from 'uniqid';
+import ShortUniqueId from 'short-unique-id';
 
 @Component({
   selector: 'app-quiz-create-card',
@@ -39,6 +39,8 @@ export class QuizCreateCardComponent implements OnInit, OnChanges, OnDestroy{
   questionIdCtr: number = 0;
 
   newAnswer: string = '';
+
+  uid = new ShortUniqueId({ length: 10 });
 
   constructor() {
 
@@ -78,7 +80,7 @@ export class QuizCreateCardComponent implements OnInit, OnChanges, OnDestroy{
   }
 
   addQuestion(){
-    let newQuestion: IQuestion = {id: uniqid(), name: this.newQuestion, answers: []};
+    let newQuestion: IQuestion = {id: this.uid.rnd(), name: this.newQuestion, answers: []};
     this.quizContent.questions.push(newQuestion);
     this.newQuestion = '';
   }
@@ -89,7 +91,7 @@ export class QuizCreateCardComponent implements OnInit, OnChanges, OnDestroy{
   }
 
   addAnswer(question: IQuestion) {
-    question.answers.push({id: uniqid(), name: this.newAnswer, isCorrect: false});
+    question.answers.push({id: this.uid.rnd(), name: this.newAnswer, isCorrect: false});
     this.newAnswer = '';
   }
 

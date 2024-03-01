@@ -9,7 +9,9 @@
 
 import { xml2js, xml2json } from "xml-js";
 import { IQuiz, IQuizParsed } from "../interfaces/quiz.interface";
-import uniqid from "uniqid";
+import ShortUniqueId from "short-unique-id";
+
+const uid = new ShortUniqueId({ length: 10 });
 
 const templateXML = {
     openingTag: "<quiz>",
@@ -56,11 +58,11 @@ export function LoadFromTemplate(data: string): IQuiz | null {
         parsedContent.questions = json.quiz.q.map(q => {
             return {
                 name: q.qName._text as string,
-                id: uniqid(),
+                id: uid.rnd(),
                 answers: q.ans.map(a => {
                     return {
                         name: a._text.toString(),
-                        id: uniqid(),
+                        id: uid.rnd(),
                         isCorrect: a._attributes.isCorrect as boolean
                     }
                 })
