@@ -11,12 +11,14 @@ import { shareScoreTemplate } from '../../utils/share-score-template';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { openSnackBar } from '../../utils/snacbkar-wrapper';
 import { ClipboardModule, Clipboard } from '@angular/cdk/clipboard';
+import hash from 'hash-it';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-quiz',
   standalone: true,
   imports: [RouterModule, MatProgressSpinnerModule, CommonModule, ClipboardModule,
-    MatButtonModule, QuizCardComponent],
+    MatButtonModule, QuizCardComponent, MatTooltipModule],
   templateUrl: './quiz.component.html',
   styleUrl: './quiz.component.scss'
 })
@@ -27,6 +29,7 @@ export class QuizComponent implements OnInit {
   isUncompressError = false;
   isResult = false;
   calculatedScore = { score: 0, maxScore: 0, percentage: 0 };
+  quizSignature: number = 0;
 
   constructor(private route: ActivatedRoute, 
     private clipboard: Clipboard, private router: Router, 
@@ -51,8 +54,13 @@ export class QuizComponent implements OnInit {
 
   getQuizResults(answers: IQuizCheck[]) {
     console.log(answers);
-    this.isResult = true;
+    this.calcQuizSignature();
     this.calculatedScore = this.countScore(answers);
+    this.isResult = true;
+  }
+
+  private calcQuizSignature(){
+    this.quizSignature = hash(this.quizData);
   }
 
   onResetQuiz(){

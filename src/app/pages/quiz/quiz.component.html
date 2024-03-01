@@ -26,12 +26,18 @@
 }
 
 @if(quizData && isResult){
-    <h3>Your score:</h3>
+    <div class="results-div">
+    <h1>{{quizData.name}}</h1>
     <h2>{{calculatedScore.score}}/{{calculatedScore.maxScore}} ({{calculatedScore.percentage}}%)</h2>
+    <div class="quiz-signature" matTooltip="Signature of validity" matTooltipPosition="above">
+        <span class="sig-label">SIG: </span>
+        <span>{{quizSignature}}</span>
+    </div>
     <div class="result-buttons">
         <button mat-flat-button color="primary" (click)="onResetQuiz()">Try again</button>
         <button mat-flat-button color="accent" (click)="onShareScore()">Share</button>
     </div>
+</div>
 
 }
 
