@@ -8,7 +8,7 @@
         [name]="route.name"
         [matIcon]="route.icon"
         [routeName]="route.route"
-        (onSelectedRoute)="onRouteSelect($event)">
+        (onSelectedRoute)="onRouteSelect($event, drawer)">
       ></app-navbar-icon>
       <!-- <a mat-list-item (click)="onRouteSelect('quiz')">Load Quiz</a>
       <a mat-list-item (click)="onRouteSelect('about')">About</a> -->

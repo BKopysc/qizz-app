@@ -3,16 +3,12 @@ import * as qr from 'qrcode';
 
 export async function generateScoreToImage(name: string, score: number, maxScore: number, percentage: number, signature: number): Promise<string> {
 
-   
-     // Set the font path if needed
-    // registerFont('path/to/your/font.ttf', { family: 'Your Font Family' });
-
     // Create a canvas
-    const canvas = createCanvas(350, 350); // Adjusted size
+    const canvas = createCanvas(300, 350); // Adjusted size
     const ctx = canvas.getContext('2d');
 
-    // Creamy background
-    ctx.fillStyle = '#fcf8ed'; // Creamy color
+    // background
+    ctx.fillStyle = '#fcf8ed'; 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Black border
@@ -21,25 +17,25 @@ export async function generateScoreToImage(name: string, score: number, maxScore
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
     // Watermark with a slight angle
-    ctx.save(); // Save the current transformation matrix
-    ctx.globalAlpha = 0.3; // Adjust watermark opacity
+    ctx.save();
+    ctx.globalAlpha = 0.3; 
     ctx.font = 'italic 16px Arial';
     ctx.fillStyle = 'gray';
-    const angle = -0.3; // Adjust the angle as needed
+    const angle = -0.3; 
     for (let x = 10; x < canvas.width; x += 50) {
         for (let y = 10; y < canvas.height; y += 50) {
-            ctx.translate(x, y); // Move to the position
-            ctx.rotate(angle); // Rotate the context
-            ctx.fillText('QIzz', 0, 0); // Draw text
-            ctx.rotate(-angle); // Reset rotation
-            ctx.translate(-x, -y); // Move back to the original position
+            ctx.translate(x, y); 
+            ctx.rotate(angle);
+            ctx.fillText('QIzz', 0, 0); 
+            ctx.rotate(-angle); 
+            ctx.translate(-x, -y);
         }
     }
     ctx.restore(); // Restore the saved transformation matrix
     ctx.globalAlpha = 1; // Reset alpha
 
     // Set font and style
-    ctx.font = 'bold 14px Arial'; // Adjusted size and bold labels
+    ctx.font = 'bold 14px Arial'; 
     ctx.fillStyle = 'black';
 
     // Draw text on the canvas with labels
@@ -52,25 +48,21 @@ export async function generateScoreToImage(name: string, score: number, maxScore
     const signatureQrCode = await generateQRCode(`$N${name}--P${percentage}%--SIG${signature}`);
     ctx.drawImage(signatureQrCode, 10, 180);
 
-    // Random gradient strip based on the signature with padding
     const padding = 10;
     const gradient = ctx.createLinearGradient(padding, canvas.height - padding, canvas.width - padding, canvas.height - padding);
-    for (let i = 0; i < 3; i++) { // Changed to 3 colors
+    for (let i = 0; i < 3; i++) { 
         gradient.addColorStop(i / 2, getRandomColor(signature + i));
     }
 
     ctx.fillStyle = gradient;
     ctx.fillRect(padding, canvas.height - 5 - padding, canvas.width - 2 * padding, 10);
 
-    // Convert canvas content to data URL
     const dataUrl = canvas.toDataURL();
-
-    // Return the data URL
     return dataUrl;
 }
 
 async function generateQRCode(data: string): Promise<any> {
-    const qrCanvas = createCanvas(150, 150); // Adjusted size for QR code
+    const qrCanvas = createCanvas(150, 150);
     await qr.toCanvas(qrCanvas, data);
     return qrCanvas;
 }
