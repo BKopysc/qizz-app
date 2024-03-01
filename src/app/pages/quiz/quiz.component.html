@@ -37,6 +37,9 @@
         <button mat-flat-button color="primary" (click)="onResetQuiz()">Try again</button>
         <button mat-flat-button color="accent" (click)="onShareScore()">Share</button>
     </div>
+    @if(imageUrl.length > 0){
+        <img [src]="imageUrl" alt="quiz result image" class="result-image">
+    }
 </div>
 
 }

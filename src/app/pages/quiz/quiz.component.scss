@@ -20,6 +20,10 @@
     animation: colorAnimation 8s linear infinite;
 }
 
+.result-image{
+    margin-top: 20px;
+}
+
 @keyframes colorAnimation {
     0% {
         background-color: rgb(255, 246, 226);

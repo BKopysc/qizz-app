@@ -13,6 +13,7 @@ import { openSnackBar } from '../../utils/snacbkar-wrapper';
 import { ClipboardModule, Clipboard } from '@angular/cdk/clipboard';
 import hash from 'hash-it';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { generateScoreToImage } from '../../utils/generate-score-image';
 
 @Component({
   selector: 'app-quiz',
@@ -30,6 +31,7 @@ export class QuizComponent implements OnInit {
   isResult = false;
   calculatedScore = { score: 0, maxScore: 0, percentage: 0 };
   quizSignature: number = 0;
+  imageUrl: string = '';
 
   constructor(private route: ActivatedRoute, 
     private clipboard: Clipboard, private router: Router, 
@@ -65,14 +67,18 @@ export class QuizComponent implements OnInit {
 
   onResetQuiz(){
     this.isResult = false;
+    this.imageUrl = '';
     this.calculatedScore = { score: 0, maxScore: 0, percentage: 0 };
   }
 
-  onShareScore(){
-    const fullPath = window.location.href;
-    const shared = shareScoreTemplate(this.calculatedScore.score, this.calculatedScore.maxScore, this.quizData!.name, fullPath);
-    this.clipboard.copy(shared);
-    openSnackBar('Score shared!', this._snackBar);
+  async onShareScore(){
+    //const fullPath = window.location.href;
+    //const shared = shareScoreTemplate(this.calculatedScore.score, this.calculatedScore.maxScore, this.quizData!.name, fullPath);
+    //this.clipboard.copy(shared);
+    const imageUrl = await generateScoreToImage(this.quizData!.name, this.calculatedScore.score, this.calculatedScore.maxScore, this.calculatedScore.percentage, this.quizSignature);
+    this.imageUrl = imageUrl;
+    //this.clipboard.copy(imageUrl);
+    openSnackBar('Image generated', this._snackBar);
   }
 
   private countScore(quizCheck: IQuizCheck[]): { score: number, maxScore: number, percentage: number } {
