@@ -11,36 +11,30 @@
     gap: 10px;
 }
 
-.quiz-signature {
+.quiz-signature{
+    background-color: rgb(252, 250, 232);
+}
+
+.score-signature{
+    background-color: rgb(231, 249, 250);
+}
+
+.signature {
     padding: 5px;
     border-radius: 2px;
     border: 2px solid rgb(219, 219, 219);
     width: fit-content;
     margin-bottom: 20px;
-    animation: colorAnimation 8s linear infinite;
+}
+
+.id-signature{
+    background-color: rgb(234, 234, 234);
 }
 
 .result-image{
     margin-top: 20px;
 }
 
-@keyframes colorAnimation {
-    0% {
-        background-color: rgb(255, 246, 226);
-    }
-    25% {
-        background-color: rgb(234, 255, 248);
-    }
-    50% {
-        background-color: rgb(226, 246, 255);
-    }
-    75% {
-        background-color: rgb(226, 226, 255);
-    }
-    100% {
-        background-color: rgb(255, 246, 226);
-    }
-}
 .results-div{
     display: flex;
     flex-direction: column;
@@ -49,4 +43,19 @@
 
 .sig-label{
     font-weight: 500;
+}
+
+
+.verify-div{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid rgb(219, 219, 219);
+    padding: 20px;
+}
+
+.quiz-answers{
+    margin-top: 10px;
 }

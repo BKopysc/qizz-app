@@ -42,6 +42,19 @@
     align-items: normal !important;
 }
 
+.quiz-options{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.quiz-options-mobile{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .answer-div{
     display: flex;
     flex-direction: row;

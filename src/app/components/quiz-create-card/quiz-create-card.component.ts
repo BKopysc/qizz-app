@@ -3,7 +3,7 @@ import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Si
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { IAnswer, IQuestion, IQuiz } from '../../interfaces/quiz.interface';
+import { IAnswer, IOptions, IQuestion, IQuiz } from '../../interfaces/quiz.interface';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -39,6 +39,8 @@ export class QuizCreateCardComponent implements OnInit, OnChanges, OnDestroy{
   questionIdCtr: number = 0;
 
   newAnswer: string = '';
+
+  quizOptions: IOptions = {showAnswers: false, shuffleQuestions: false};
 
   uid = new ShortUniqueId({ length: 10 });
 
@@ -76,6 +78,7 @@ export class QuizCreateCardComponent implements OnInit, OnChanges, OnDestroy{
   private emitQuizContent(){
     this.quizContent.name = this.title;
     this.quizContent.description = this.description;
+    this.quizContent.options = this.quizOptions;
     this.getQuizContent.emit(this.quizContent);
   }
 

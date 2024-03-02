@@ -1,7 +1,13 @@
 export interface IQuiz {
     name: string;
     description: string;
-    questions: IQuestion[];   
+    questions: IQuestion[];
+    options?: IOptions;
+}
+
+export interface IOptions{
+    showAnswers: boolean;
+    shuffleQuestions: boolean;
 }
 
 export interface IQuestion{

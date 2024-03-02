@@ -1,0 +1,44 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+}
+
+.question-div{
+    width: 100%;
+}
+
+.answers-div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.icons-answer-div{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    border-radius: 2px;
+}
+
+.correct-answer{
+    background-color: rgb(234, 255, 234);
+}
+
+.incorrect-answer{
+    background-color: rgb(255, 231, 231);
+}
+
+.icons-div{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+}
+
+.answer-span{
+    word-break: break-all;
+}

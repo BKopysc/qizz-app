@@ -47,8 +47,6 @@ export class QuizCardComponent implements OnInit{
 
 
   ngOnInit(): void {
-
-
     if(this.quizData){
       this.quizData.questions.forEach((question: IQuestion) => {
         this.quizFormGroup.addControl('q-'+question.id, this.formBuilder.group({}));
@@ -59,8 +57,10 @@ export class QuizCardComponent implements OnInit{
       });
       this.isLoading = false;
     }
+
     console.log(this.quizFormGroup)
   }
+
 
 
   public onSendQuiz(){

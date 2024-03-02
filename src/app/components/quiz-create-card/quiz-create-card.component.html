@@ -72,6 +72,10 @@
                 </button>
             </div>
         </div>
+        <div [ngClass]="(isHandset$ | async) ? 'quiz-options-mobile' : 'quiz-options'">
+            <mat-checkbox [(ngModel)]="quizOptions.showAnswers">Show answers</mat-checkbox>
+            <mat-checkbox [(ngModel)]="quizOptions.shuffleQuestions">Shuffle</mat-checkbox>
+        </div>
         <!-- <button (click)="getData()">Get data</button> -->
     </mat-card-content>
 </mat-card>

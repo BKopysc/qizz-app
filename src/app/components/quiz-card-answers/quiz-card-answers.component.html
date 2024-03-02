@@ -1,0 +1,28 @@
+<mat-card>
+    <mat-card-content>
+    @if(quizFinalData !== undefined){
+    @for (question of quizFinalData.questions; track $index) {
+    <div class="question-div">
+        <h3>{{$index+1}}. {{question.name}}</h3>
+        <div class="answers-div">
+            @for (answer of question.answers; track $index) {
+            <div [ngClass]="answer.isCorrect && answer.isUserAnswer? 'correct-answer' : 'incorrect-answer'" class="icons-answer-div">
+                <div class="icons-div">
+                    @if(answer.isUserAnswer){
+                    <mat-icon>check_box</mat-icon>
+                    } @else {
+                    <mat-icon>check_box_outline_blank</mat-icon>
+                    }
+                    @if(answer.isCorrect){
+                        <mat-icon>verified</mat-icon>
+                    } 
+                </div>
+                <span class="answer-span">{{answer.name}}</span>
+            </div>
+            }
+        </div>
+    </div>
+    }
+    }
+</mat-card-content>
+</mat-card>

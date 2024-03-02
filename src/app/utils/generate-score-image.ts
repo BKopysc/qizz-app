@@ -1,10 +1,12 @@
 import { createCanvas } from "canvas";
-import * as qr from 'qrcode';
+import { IQuizImage } from "../interfaces/quiz-image.interface";
+import { generateQRCode, generateQRCodeForVerify } from "./generate-qr-code";
 
-export async function generateScoreToImage(name: string, score: number, maxScore: number, percentage: number, signature: number): Promise<string> {
+
+export async function generateScoreToImage(quizImageData: IQuizImage): Promise<string> {
 
     // Create a canvas
-    const canvas = createCanvas(300, 350); // Adjusted size
+    const canvas = createCanvas(300, 370); // Adjusted size
     const ctx = canvas.getContext('2d');
 
     // background
@@ -18,7 +20,7 @@ export async function generateScoreToImage(name: string, score: number, maxScore
 
     // Watermark with a slight angle
     ctx.save();
-    ctx.globalAlpha = 0.3; 
+    ctx.globalAlpha = 0.2; 
     ctx.font = 'italic 16px Arial';
     ctx.fillStyle = 'gray';
     const angle = -0.3; 
@@ -39,19 +41,43 @@ export async function generateScoreToImage(name: string, score: number, maxScore
     ctx.fillStyle = 'black';
 
     // Draw text on the canvas with labels
-    ctx.fillText(`Name: ${name}`, 10, 30);
-    ctx.fillText(`Score: ${score}/${maxScore}`, 10, 70);
-    ctx.fillText(`Percentage: ${percentage}%`, 10, 110);
-    ctx.fillText(`SIG: ${signature}`, 10, 150);
+    ctx.fillText(`${quizImageData.name}`, 10, 30);
+
+    ctx.font = 'bold 13px Arial';
+    ctx.fillText(`Score: ${quizImageData.score}/${quizImageData.maxScore}  (${quizImageData.percentage}%)`, 10, 50);
+
+    //draw dotted line
+    ctx.beginPath();
+    ctx.setLineDash([3, 2]);
+    ctx.strokeStyle = 'gray';
+    ctx.moveTo(0, 65);
+    ctx.lineTo(300, 65);
+    ctx.stroke();
+
+    ctx.font = 'bold 13px Arial';
+    ctx.fillStyle = 'blue'
+    ctx.fillText(`ID: ${quizImageData.id}`, 10, 85);
+    ctx.fillStyle = 'purple'
+    ctx.fillText(`SIG-Q: ${quizImageData.quizSignature}`, 10, 105);
+    ctx.fillText(`SIG-S: ${quizImageData.scoreSignature}`, 10, 125);
 
     // Generate QR code for signature
-    const signatureQrCode = await generateQRCode(`$N${name}--P${percentage}%--SIG${signature}`);
-    ctx.drawImage(signatureQrCode, 10, 180);
+    const signatureQrCode = await generateQRCodeForVerify(
+        quizImageData.verifyUrl, 
+        quizImageData.quizSignature, 
+        quizImageData.scoreSignature, 
+        quizImageData.score,
+        quizImageData.id
+    );
+    ctx.font = 'italic 12px Arial';
+    ctx.fillStyle = 'black';
+    ctx.fillText('Scan to verify authenticity', 10, 145);
+    ctx.drawImage(signatureQrCode, 10, 150);
 
     const padding = 10;
     const gradient = ctx.createLinearGradient(padding, canvas.height - padding, canvas.width - padding, canvas.height - padding);
     for (let i = 0; i < 3; i++) { 
-        gradient.addColorStop(i / 2, getRandomColor(signature + i));
+        gradient.addColorStop(i / 2, getRandomColor(quizImageData.quizSignature + i));
     }
 
     ctx.fillStyle = gradient;
@@ -59,12 +85,6 @@ export async function generateScoreToImage(name: string, score: number, maxScore
 
     const dataUrl = canvas.toDataURL();
     return dataUrl;
-}
-
-async function generateQRCode(data: string): Promise<any> {
-    const qrCanvas = createCanvas(150, 150);
-    await qr.toCanvas(qrCanvas, data);
-    return qrCanvas;
 }
 
 function getRandomColor(seed: number): string {

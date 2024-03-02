@@ -36,6 +36,7 @@ export class NavbarComponent {
   public routes: {route: CustomRoute, name: string, icon: string}[]= [
     {route: 'home', name: 'Home', icon: 'home'},
     {route: 'load-quiz', name: 'Load Quiz', icon: 'question_answer'},
+    {route: 'verify', name: 'Verify Quiz', icon: 'verified_user'},
     {route: 'about', name: 'About', icon: 'info'},
     {route: 'template', name: 'Template', icon: 'format_list_bulleted'}
   ]

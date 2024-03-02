@@ -29,18 +29,40 @@
     <div class="results-div">
     <h1>{{quizData.name}}</h1>
     <h2>{{calculatedScore.score}}/{{calculatedScore.maxScore}} ({{calculatedScore.percentage}}%)</h2>
-    <div class="quiz-signature" matTooltip="Signature of validity" matTooltipPosition="above">
-        <span class="sig-label">SIG: </span>
+    <div class="signature id-signature" matTooltip="Generated ID" matTooltipPosition="above">
+        <span class="sig-label">ID: </span>
+        <span>{{id}}</span>
+        </div>
+    <div class="signature quiz-signature" matTooltip="Quiz signature of validity" matTooltipPosition="above">
+        <span class="sig-label">SIG-Q: </span>
         <span>{{quizSignature}}</span>
+    </div>
+    <div class="signature quiz-signature" matTooltip="Score signature of validity" matTooltipPosition="above">
+        <span class="sig-label">SIG-S: </span>
+        <span>{{quizScoreSignature}}</span>
     </div>
     <div class="result-buttons">
         <button mat-flat-button color="primary" (click)="onResetQuiz()">Try again</button>
-        <button mat-flat-button color="accent" (click)="onShareScore()">Share</button>
+        <button mat-flat-button color="accent" (click)="onShareScore()">Get Certificate</button>
     </div>
     @if(imageUrl.length > 0){
+        <div class="verify-div">
+            <button mat-stroked-button color="primary" (click)="onOpenVerify()">Copy link</button>
         <img [src]="imageUrl" alt="quiz result image" class="result-image">
+        </div>
     }
 </div>
+
+@if(quizData.options?.showAnswers){
+    <div class="quiz-answers">
+    <h3>Answers:</h3>
+    <app-quiz-card-answers
+    [quizData]="quizData"
+    [userAnswers]="quizUserAnswers!"
+    >
+    </app-quiz-card-answers>
+    </div>
+}
 
 }
 

@@ -14,27 +14,37 @@ import { ClipboardModule, Clipboard } from '@angular/cdk/clipboard';
 import hash from 'hash-it';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { generateScoreToImage } from '../../utils/generate-score-image';
+import { IQuizImage } from '../../interfaces/quiz-image.interface';
+import { generateSignatureForQuiz, generateSignatureForQuizAndScore } from '../../utils/generate-signature';
+import { CustomRouteEnum } from '../../app.routes';
+import ShortUniqueId from 'short-unique-id';
+import { QuizCardAnswersComponent } from '../../components/quiz-card-answers/quiz-card-answers.component';
 
 @Component({
   selector: 'app-quiz',
   standalone: true,
   imports: [RouterModule, MatProgressSpinnerModule, CommonModule, ClipboardModule,
-    MatButtonModule, QuizCardComponent, MatTooltipModule],
+    MatButtonModule, QuizCardComponent, MatTooltipModule, QuizCardAnswersComponent],
   templateUrl: './quiz.component.html',
   styleUrl: './quiz.component.scss'
 })
 export class QuizComponent implements OnInit {
 
   quizData?: IQuiz;
+  quizUserAnswers?: IQuizCheck[];
   compressedData: string = '';
   isUncompressError = false;
   isResult = false;
-  calculatedScore = { score: 0, maxScore: 0, percentage: 0 };
+  calculatedScore = { score: 0, maxScore: 0, percentage: '' };
   quizSignature: number = 0;
+  quizScoreSignature: number = 0;
+  id: number = 0;
   imageUrl: string = '';
 
-  constructor(private route: ActivatedRoute, 
-    private clipboard: Clipboard, private router: Router, 
+  uid = new ShortUniqueId({ length: 12, dictionary: 'number' });
+
+  constructor(private route: ActivatedRoute,
+    private clipboard: Clipboard, private router: Router,
     private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -47,41 +57,82 @@ export class QuizComponent implements OnInit {
           return;
         }
         this.quizData = uncompressed;
-        console.log(this.quizData)
+        this.shuffleQuestionsAndAnswers();
       } catch (e) {
         this.isUncompressError = true;
       }
     });
   }
 
+  private shuffleQuestionsAndAnswers(): void {
+
+    if (this.quizData?.options?.shuffleQuestions === true) {
+
+      this.quizData.questions.forEach(q => {
+        q.answers = [...this.shuffleArray(q.answers)];
+      });
+
+      this.quizData.questions = [...this.shuffleArray(this.quizData.questions)];
+    }
+  }
+
+  private shuffleArray(array: any[]): any[] {
+    return array.sort(() => Math.random() - 0.5);
+  }
+
   getQuizResults(answers: IQuizCheck[]) {
-    console.log(answers);
-    this.calcQuizSignature();
+    this.quizUserAnswers = answers;
     this.calculatedScore = this.countScore(answers);
+    this.calcSignatures();
     this.isResult = true;
   }
 
-  private calcQuizSignature(){
-    this.quizSignature = hash(this.quizData);
+  private calcSignatures() {
+    this.id = parseInt(this.uid.rnd())
+    const generatedSignatures = generateSignatureForQuizAndScore(this.quizData!, this.calculatedScore.score, this.id);
+    this.quizScoreSignature = generatedSignatures.scoreSignature;
+    this.quizSignature = generatedSignatures.quizSignature;
   }
 
-  onResetQuiz(){
+  onResetQuiz() {
     this.isResult = false;
     this.imageUrl = '';
-    this.calculatedScore = { score: 0, maxScore: 0, percentage: 0 };
+    this.calculatedScore = { score: 0, maxScore: 0, percentage: '' };
   }
 
-  async onShareScore(){
+  async onShareScore() {
     //const fullPath = window.location.href;
     //const shared = shareScoreTemplate(this.calculatedScore.score, this.calculatedScore.maxScore, this.quizData!.name, fullPath);
     //this.clipboard.copy(shared);
-    const imageUrl = await generateScoreToImage(this.quizData!.name, this.calculatedScore.score, this.calculatedScore.maxScore, this.calculatedScore.percentage, this.quizSignature);
+    const verifyUrl = window.origin + "/" + CustomRouteEnum.verify;
+    const imageData: IQuizImage = {
+      name: this.quizData!.name,
+      score: this.calculatedScore.score,
+      maxScore: this.calculatedScore.maxScore,
+      percentage: this.calculatedScore.percentage,
+      quizSignature: this.quizSignature,
+      scoreSignature: this.quizScoreSignature,
+      verifyUrl: verifyUrl,
+      id: this.id
+    }
+    const imageUrl = await generateScoreToImage(imageData);
     this.imageUrl = imageUrl;
     //this.clipboard.copy(imageUrl);
-    openSnackBar('Image generated', this._snackBar);
+    openSnackBar('Certificate generated', this._snackBar);
   }
 
-  private countScore(quizCheck: IQuizCheck[]): { score: number, maxScore: number, percentage: number } {
+  onOpenVerify() {
+    const queryParams =
+      "?quizSig=" + this.quizSignature
+      + "&scoreSig=" + this.quizScoreSignature
+      + "&score=" + this.calculatedScore.score
+      + "&id=" + this.id;
+    const url = window.origin + "/" + CustomRouteEnum.verify + queryParams;
+    this.clipboard.copy(url);
+    openSnackBar('Link copied to clipboard', this._snackBar);
+  }
+
+  private countScore(quizCheck: IQuizCheck[]): { score: number, maxScore: number, percentage: string } {
     let score = 0;
     let maxScore = 0;
     let scoresPerQuestion = new Map<string, number>();
@@ -103,15 +154,23 @@ export class QuizComponent implements OnInit {
           questionScore++;
         }
       });
-      if(questionScore == scoresPerQuestion.get(qc.questionId) && qc.answers.length == questionScore){
+      if (questionScore == scoresPerQuestion.get(qc.questionId) && qc.answers.length == questionScore) {
         score++;
       }
     });
 
+    let percentage = 0;
+    if (maxScore > 0) {
+      percentage = (score / maxScore) * 100;
+    } else {
+      percentage = 100;
+    }
+
+
     return {
       score,
       maxScore,
-      percentage: (score / maxScore) * 100
+      percentage: percentage.toFixed(2)
     };
   }
 

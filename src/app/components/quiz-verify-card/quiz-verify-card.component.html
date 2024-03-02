@@ -1,0 +1,23 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title class="title">
+            @if (verifyResult) {
+                <mat-icon class="verified-icon">verified</mat-icon>
+                <span>Quiz verified</span>
+            } @else {
+                <mat-icon class="not-verified-icon">error</mat-icon>
+                <span>Quiz not verified</span>
+            }
+        </mat-card-title>
+        <mat-card-subtitle>
+            @if(verifyResult){
+                <span>Score {{score}} is valid</span>
+            } @else {
+                <span>Score {{score}} is not valid</span>
+            }
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+        <button mat-stroked-button (click)="onCloseCard()">Close</button>
+    </mat-card-actions>
+</mat-card>
