@@ -6,7 +6,12 @@
         <h3>{{$index+1}}. {{question.name}}</h3>
         <div class="answers-div">
             @for (answer of question.answers; track $index) {
-            <div [ngClass]="answer.isCorrect && answer.isUserAnswer? 'correct-answer' : 'incorrect-answer'" class="icons-answer-div">
+            <div 
+            [ngClass]="{
+                'correct-answer': answer.isCorrect && answer.isUserAnswer,
+                'incorrect-answer': answer.isUserAnswer && !answer.isCorrect
+            }" 
+            class="icons-answer-div">
                 <div class="icons-div">
                     @if(answer.isUserAnswer){
                     <mat-icon>check_box</mat-icon>

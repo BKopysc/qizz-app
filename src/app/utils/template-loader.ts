@@ -63,7 +63,7 @@ export function LoadFromTemplate(data: string): IQuiz | null {
                     return {
                         name: a._text.toString(),
                         id: uid.rnd(),
-                        isCorrect: a._attributes.isCorrect as boolean
+                        isCorrect: (a._attributes.isCorrect.toLowerCase() === 'true')
                     }
                 })
             }

@@ -41,6 +41,6 @@ export interface IQuestionParsed{
 export interface IAnswerParsed{
     _text: string;
     _attributes: {
-        isCorrect: boolean
+        isCorrect: string
     }
 }
