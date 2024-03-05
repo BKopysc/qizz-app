@@ -30,7 +30,7 @@
             <form [formGroup]="aiGeneratedFormGroup">
                 <ng-template matStepLabel>Generate with AI (optional)</ng-template>
                 <div class="form-section mb-20">
-                    <mat-form-field class="form-mw-500">
+                    <mat-form-field class="form-mw-500 form-minh-200">
                         <mat-label>Main subject</mat-label>
                         <textarea matInput placeholder="AI tech in 2024" formControlName="mainSubjectCtrl">
                         </textarea>
@@ -52,15 +52,12 @@
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-checkbox formControlName="enableMultipleChoiceCtrl" color="primary">Multiple
-                        choice</mat-checkbox>
-
                 </div>
 
                 <button mat-flat-button color="primary" (click)="onGenerateQuiz()">Generate prompt</button>
 
                 <div class="form-section form-gap-10 mt-30 mb-40" *ngIf="isGenerated">
-                    <p class="result-info">Result (copy it to Chat-GPT or another LLM)</p>
+                    <p class="result-info">Result (copy it to Chat-GPT, Bing Copilot or other LLM)</p>
 
                     <textarea class="form-mw-500 form-minh-200" [value]="textAreaResult" disabled></textarea>
 
@@ -89,8 +86,8 @@
             </form>
             @if(isLoadedFromTemplateError){
                 <p style="color:brown">Data is invalid</p>
-                <button mat-flat-button color="accent" (click)="onClearTemplateTextarea()">Clear data</button>
             }
+            <button mat-button mat-stroked-button color="warn" (click)="onClearTemplateTextarea()">Clear</button>
             <div class="step-button-div mt-30">
                 <button mat-stroked-button matStepperPrevious>Back</button>
                 <button mat-stroked-button (click)="loadFromTemplate(stepper)">Next</button>
@@ -100,8 +97,6 @@
         <mat-step>
             <ng-template matStepLabel>Quiz editor</ng-template>
             <p>You can custom your Quiz</p>
-
-            
 
             <ng-template matStepContent>
                 <app-quiz-create-card [title]="quizInfoFormGroup.value.titleCtrl! || 'title'"
@@ -128,7 +123,6 @@
                 <button mat-stroked-button matStepperPrevious>Back</button>
             } @else {
                 <p>Quiz Data:</p>
-                <!-- <button (click)="printData()">getData</button> -->
                 <textarea disabled style="max-width: 500px; height:150px; width: 100%;" [value]="compressedQuizContent"></textarea>
                 <div class="step-button-div mt-30">
                     <button mat-stroked-button (click)="onCopyLink()">Copy link</button>

@@ -27,8 +27,6 @@ export class QuizCardAnswersComponent implements OnInit {
 
   ngOnInit(): void {
     this.convertData();
-    console.log(this.quizData);
-    console.log(this.userAnswers);
   }
 
   private convertData(){
@@ -54,8 +52,6 @@ export class QuizCardAnswersComponent implements OnInit {
         name: question.name,
         answers: allAnswers
       };
-
-      console.log(questionAllAnswer);
 
       this.quizFinalData.questions.push(questionAllAnswer);
     });

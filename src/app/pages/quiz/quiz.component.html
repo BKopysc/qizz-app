@@ -1,4 +1,7 @@
 
+<div id="top-div">
+</div>
+
 @if(quizData === undefined){
     @if(isUncompressError){
         <div class="simple-flex">
@@ -23,6 +26,7 @@
     >
 
     </app-quiz-card>
+    <button (click)="scrollToTop()">SCroll</button>
 }
 
 @if(quizData && isResult){
@@ -55,7 +59,7 @@
 
 @if(quizData.options?.showAnswers){
     <div class="quiz-answers">
-    <h3>Answers:</h3>
+    <h2>Answers:</h2>
     <app-quiz-card-answers
     [quizData]="quizData"
     [userAnswers]="quizUserAnswers!"

@@ -17,14 +17,13 @@
                             <div class="question-content-div">
                                 @for (quizAnswer of quizQuestion.answers; track $index) {
                                     <div [ngClass]="(isHandset$ | async) ? 'answer-div-mobile':'answer-div'">
-                                        <!-- <mat-checkbox [checked]="answerMap.get(quizAnswer.id)" (change)="answerMap.set(quizAnswer.id, $event.checked)">{{quizAnswer.name}}</mat-checkbox> -->
                                         <mat-checkbox [checked]="quizAnswer.isCorrect" (change)="changeAnswerState(quizQuestion, quizAnswer.id)">
                                             {{quizAnswer.name}}
                                         </mat-checkbox>
                                         <div class='answer-icons-div' >
-                                            <button mat-icon-button color="basic">
+                                            <!-- <button mat-icon-button color="basic">
                                                 <mat-icon>edit</mat-icon>
-                                            </button>
+                                            </button> -->
                                             <button mat-icon-button color="warn" (click)="deleteAnswer(quizQuestion, quizAnswer)">
                                                 <mat-icon>delete</mat-icon>
                                             </button>
@@ -43,11 +42,11 @@
                                 </button>
                             </div>
                             <div [ngClass]="(isHandset$ | async) ? 'footer-question-buttons-mobile':'footer-question-buttons'">
-
+<!-- 
                                 <button mat-flat-button color="accent">
                                     <mat-icon>edit</mat-icon>
                                     <span>Edit</span>
-                                </button>
+                                </button> -->
 
                                 <button mat-flat-button color="warn" (click)="deleteQuestion(quizQuestion)">
                                     <mat-icon>delete</mat-icon>
@@ -61,7 +60,6 @@
         }
 
         <div class="content-footer">
-            <!-- <mat-checkbox [(ngModel)]="isMultipleChoice">Multiple choice</mat-checkbox> -->
             <div class="add-new-question-div" [ngClass]="(isHandset$ | async) ? 'add-new-question-mobile':''">
                 <mat-form-field appearance="outline" [ngClass]="(isHandset$ | async) ? 'question-form-mobile':'question-form'">
                     <input matInput  placeholder="New question" [(ngModel)]="newQuestion">

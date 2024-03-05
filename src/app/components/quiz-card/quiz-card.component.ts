@@ -57,8 +57,6 @@ export class QuizCardComponent implements OnInit{
       });
       this.isLoading = false;
     }
-
-    console.log(this.quizFormGroup)
   }
 
 

@@ -99,9 +99,6 @@ export class HomeComponent {
     this.textAreaResult = generated;
   }
 
-  onEditorStepInteraction(event:any) {
-    console.log(event);
-  }
 
   onCopyGenerated() {
     openSnackBar("Copied to clipboard", this._snackBar);
@@ -122,7 +119,6 @@ export class HomeComponent {
   loadFromTemplate(matStepperCtx: MatStepper) {
     if(this.loadTemplateFormGroup.value.templateCtrl !== "") {
       const loadedRes = LoadFromTemplate(this.loadTemplateFormGroup.value.templateCtrl!);
-      console.log(loadedRes);
       if(loadedRes === null) {
         this.isLoadedFromTemplateError = true;
         return;
@@ -144,14 +140,10 @@ export class HomeComponent {
     this.quizFinalContent = quizContent;
     const compressed = compressData(quizContent)
     if(compressed === null) {
-      console.log("Error compressing data");
+      console.error("Error compressing data");
       return;
     }
     this.compressedQuizContent = compressed;
-  }
-
-  printData() {
-    console.log(this.quizFinalContent);
   }
 
   combineLink(){

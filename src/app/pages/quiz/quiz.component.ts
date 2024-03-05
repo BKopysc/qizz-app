@@ -85,6 +85,14 @@ export class QuizComponent implements OnInit {
     this.calculatedScore = this.countScore(answers);
     this.calcSignatures();
     this.isResult = true;
+    this.scrollToTop();
+  }
+
+   scrollToTop(){
+    const topDiv = document.getElementById('top-div');
+    if (topDiv) {
+      topDiv.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   private calcSignatures() {
@@ -173,5 +181,7 @@ export class QuizComponent implements OnInit {
       percentage: percentage.toFixed(2)
     };
   }
+
+
 
 }

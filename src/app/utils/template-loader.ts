@@ -45,7 +45,6 @@ export function LoadFromTemplate(data: string): IQuiz | null {
     // Parse content from XML to JSON
     try{
         const json = xml2js(content, {compact: true}) as IQuizParsed;
-        console.log(json);
         let parsedContent: IQuiz = {
             description: '',
             name: '',

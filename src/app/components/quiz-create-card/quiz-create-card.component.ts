@@ -71,8 +71,6 @@ export class QuizCreateCardComponent implements OnInit, OnChanges, OnDestroy{
     this.parentSubject?.subscribe(e => {
       this.emitQuizContent();
     });
-    //this.fillAnswerMap();
-    console.log(this.answerMap);
   }
 
   private emitQuizContent(){
@@ -109,10 +107,6 @@ export class QuizCreateCardComponent implements OnInit, OnChanges, OnDestroy{
         a.isCorrect = !a.isCorrect;
       }
     });
-  }
-
-  getData(){
-    console.log(this.quizContent);
   }
 
 
