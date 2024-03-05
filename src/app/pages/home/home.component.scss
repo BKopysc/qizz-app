@@ -8,6 +8,31 @@
     margin-top: 20px;
 }
 
+.title-icons-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.title-icons{
+    color: rgba(131, 111, 194, 0.911);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.title-icon-span{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
 .form-mw-300{
     max-width: 300px;
 }
