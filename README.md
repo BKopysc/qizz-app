@@ -1,5 +1,5 @@
-[<img src="https://github.com/BKopysc/qizz-app/assets/57834846/fe882836-9b6d-4eb9-a27b-d0b8393a0e25">](https://qizz.pages.dev)
-
+[<img src="https://github.com/BKopysc/qizz-app/assets/57834846/fe882836-9b6d-4eb9-a27b-d0b8393a0e25">](https://qizz.pages.dev)</br>
+[Link](https://qizz.pages.dev)
 # QIzzApp [EN]
 Fast quiz builder with support of prompts for Chat-GPT, Copilot Bing, or other LLM.<br/>
 
