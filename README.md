@@ -6,8 +6,9 @@ Fast quiz builder with prompts support for Chat-GPT, Copilot Bing, or other LLM.
 ## Features
 - Creating quizzes from AI prompts.
 - Manual creating quizzes from scratch.
-- Decentralized data with manual P2P data transfer. Users exchange their data through links or compressed text.
-- None of the user data is stored on the servers.
+- Anonymus data with manual P2P transfer. Users exchange their data through links or compressed text.
+- None of the user quiz data is stored on the servers.
+- Generating and validating certificates with quiz results 
 
 <hr/>
 
@@ -17,8 +18,9 @@ Szybki kreator quizów z obsługą komend dla Chat-GPT, Copilot Bing lub innych 
 ## Funkcje:
 - Tworzenie quizów na podstawie komend dla sztucznej inteligencji.
 - Ręczne tworzenie quizów od podstaw.
-- Zdecentralizowane dane z ręcznym transferem danych P2P. Użytkownicy wymieniają się danymi za pomocą linków lub skompresowanego tekstu.
-- Żadne dane użytkownika nie są przechowywane na serwerach.
+- Anonimowe dane z ręcznym transferem P2P. Użytkownicy wymieniają się danymi za pomocą linków lub skompresowanego tekstu.
+- Żadne dane quizów użytkownika nie są przechowywane na serwerach.
+- Generowanie i weryfikowanie certyfikatów z wynikami quizów 
 
 <hr/>
 
