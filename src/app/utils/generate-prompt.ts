@@ -5,7 +5,7 @@ export function generatePrompt(subject: string = "any", language: string = 'engl
     const promptHeader = `Prepare quiz about: ${subject}\n`;
     const promptLanguage = `Language: ${language}\n`;
     const difficultyLevel = `Difficulty: ${difficulty}\n`;
-    const promptRequirements = `Requirements: [Minimum ${req.minAns} answers, Maximum ${req.maxAns} answers, unique answers, ${numOfQuestions} questions, ${isMultiOptions ? 'Multiple' : 'Single'} correct answer, add links if possible]\n`;
+    const promptRequirements = `Requirements: [Minimum ${req.minAns} answers, Maximum ${req.maxAns} answers, unique answers, ${numOfQuestions} questions, ${isMultiOptions ? 'Multiple' : 'Single'} correct answer]\n`;
     const promptFormat = `
     Format in XML: 
     <quiz>
