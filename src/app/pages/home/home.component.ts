@@ -52,7 +52,7 @@ export class HomeComponent {
 
   quizInfoFormGroup = this._formBuilder.group({
     titleCtrl: ['', [Validators.required, Validators.maxLength(50)]],
-    descriptionCtrl: ['quiz', [Validators.required, Validators.maxLength(50)]],
+    descriptionCtrl: ['Quiz', [Validators.required, Validators.maxLength(50)]],
   });
 
   aiGeneratedFormGroup = this._formBuilder.group({
